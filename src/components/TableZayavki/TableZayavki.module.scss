@@ -2,24 +2,41 @@
    overflow: auto;
   position: relative;
   height: 92vh;
-  border: 1px solid #ccc;
+  font-size: 0.9rem;
+  font-weight: 400;
+  
 
 
 
-}
+
 
 table {
-   
+
+  table-layout: fixed;
   width: 100%;
   border-collapse: collapse; // объединяет границы между ячейками
   table-layout: fixed; // помогает с изменением ширины колонок
-  border: 1px solid #000; // внешняя граница таблицы
 }
 
 th, td {
-  border: 1px solid #000; // границы для заголовков и данных
+  font-weight: 400;
+  border: 2px solid #8f8f8f; // границы для заголовков и данных
   padding: 10px;
   text-align: left;
   white-space: nowrap;
   position: relative; // для ресайзера (если есть)
+   /* Перенос текста */
+  white-space: normal;     // позволяет переносить текст
+  word-break: break-word;  // разрешает перенос внутри слова, если оно слишком длинное
+  overflow-wrap: break-word; // альтернатива word-break
+}
+
+thead th {
+  
+  position: sticky;     // фиксируем заголовки
+  top: 0;               // отступ сверху
+  z-index: 1;           // поверх контента
+  background-color: #bab9b9; // чтобы не было просмотра данных сквозь шапку
+  
+}
 }
