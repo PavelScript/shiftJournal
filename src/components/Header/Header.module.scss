@@ -1,0 +1,43 @@
+.containerHeader {
+    // position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    flex-direction: row;
+    padding-top: 1rem;
+    padding-left: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid black;
+    justify-content: space-between;
+    
+    .navigationSection {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+        .hamburgerButton {
+            width: 3rem;
+            height: 3rem;
+            text-align: center
+        }
+
+        button {
+
+            color: black;
+            background-color: transparent;
+            
+            &:focus,:focus-visible {
+                border-bottom: 2px solid black;
+            }
+
+            &:hover {
+                border-bottom: 2px solid black;
+            }
+
+            &:active {
+                border-bottom: 2px solid black;
+            }
+        }
+    }
+    }

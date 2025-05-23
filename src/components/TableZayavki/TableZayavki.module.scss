@@ -1,0 +1,25 @@
+.container {
+   overflow: auto;
+  position: relative;
+  height: 92vh;
+  border: 1px solid #ccc;
+
+
+
+}
+
+table {
+   
+  width: 100%;
+  border-collapse: collapse; // объединяет границы между ячейками
+  table-layout: fixed; // помогает с изменением ширины колонок
+  border: 1px solid #000; // внешняя граница таблицы
+}
+
+th, td {
+  border: 1px solid #000; // границы для заголовков и данных
+  padding: 10px;
+  text-align: left;
+  white-space: nowrap;
+  position: relative; // для ресайзера (если есть)
+}
