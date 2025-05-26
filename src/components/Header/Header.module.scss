@@ -2,12 +2,16 @@
 
     display: flex;
     flex-direction: row;
+    align-items: center;
     padding-top: 1rem;
     padding-left: 1rem;
     padding-bottom: 1rem;
-    border-bottom: 1px solid black;
     justify-content: space-between;
-    background-color: rgb(208, 208, 208);
+    background: #313170;
+background: linear-gradient(0deg, rgba(49, 49, 112, 1) 0%, rgba(33, 33, 89, 1) 100%);
+    height:5rem;
+    
+
     
     .navigationSection {
         display: flex;
@@ -21,19 +25,21 @@
 
         button {
 
-            color: black;
+            color:rgb(210, 210, 210);
             background-color: transparent;
             
             &:focus,:focus-visible {
-                border-bottom: 2px solid black;
+                border-bottom: 2px solid rgb(210, 210, 210);
             }
 
             &:hover {
-                border-bottom: 2px solid black;
+                border-bottom: 2px solid rgb(210, 210, 210);
+
+
             }
 
             &:active {
-                border-bottom: 2px solid black;
+                border-bottom: 2px solid rgb(210, 210, 210);
             }
         }
     }

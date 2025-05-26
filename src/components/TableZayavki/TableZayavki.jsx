@@ -4,22 +4,51 @@ import {
   useReactTable,
   getCoreRowModel,
   flexRender,
-} from "@tanstack/react-table";
+} from '@tanstack/react-table';
 import data from "./data";
 
 const TableZayavki = () => {
-  const dataReady = React.useMemo(() => data, []);
+  const dataReady = React.useMemo(() => {
+    return data;
+  }, []);
   const columns = React.useMemo(
     () => [
       {
+        id: 'expander',
+        header: '',
+        cell: ({ row}) => (
+           <div>
+              {row.getCanExpand() ? (
+                <button
+                  {...{
+                    onClick: row.getToggleExpandedHandler(),
+                    className: styles.expander
+                  }}
+                >
+                  {row.getIsExpanded() ? '-' : '+'}
+                </button>
+              ) : (
+                ''
+              )}{' '}
+
+            </div>
+        ),
+        size: 35,
+      },
+      {
         accessorKey: "id",
         header: "№ п/п",
-        size: 40,
+        size: 35,
       },
       {
         accessorKey: "place",
         header: "Объект",
         size: 130,
+      },
+      {
+        accessorKey: "via",
+        header: "Способ подачи заявки",
+        size: 120,
       },
       {
         accessorKey: "timeOpened",
@@ -29,7 +58,7 @@ const TableZayavki = () => {
       {
         accessorKey: "whoOpened",
         header: "ФИО/должность подавшего заявку",
-        size: 180,
+        size: 150,
       },
       {
         accessorKey: "whoGot",
@@ -39,29 +68,52 @@ const TableZayavki = () => {
       {
         accessorKey: "description",
         header: "Описание заявки/инцидента",
-        size: 300,
+        size: 250,
       },
       {
         accessorKey: "solution",
         header: "Решение заявки инцидента",
-        size: 300,
+        size: 350,
       },
       {
         accessorKey: "timeClosed",
         header: "Дата и время решения заявки",
+        cell: (info) => {
+          const value = info.getValue();
+          return (
+            <div className={styles.timeClosed}>
+              <div className={styles.valueTimeClosed}>{value}</div>
+              <svg width="20" height="20" viewBox="0 0 20 20">
+                <circle
+                  className={value ? styles.greenCircle : ''}
+                  cx="10"
+                  cy="10"
+                  r="8"
+                />
+              </svg>
+            </div>
+          );
+        },
         size: 200,
       },
     ],
     []
   );
 
+    const [expanded, setExpanded] = React.useState({});
   const table = useReactTable({
     data: dataReady,
     columns,
-    getCoreRowModel: getCoreRowModel(),
-  });
+  state: {
+    expanded,
+  },
+  onExpandedChange: setExpanded,
+  getSubRows: row => row.subRows ?? undefined,
+  getCoreRowModel: getCoreRowModel(),
+});
 
   return (
+    
     <div className={styles.container}>
       <table>
         <thead>
@@ -71,8 +123,7 @@ const TableZayavki = () => {
                 <th
                   key={header.id}
                   style={{
-                    textAlign: "center",
-                    width: header.getSize(), // только ширина
+                    width: header.getSize(),
                   }}
                 >
                   {flexRender(
@@ -84,23 +135,43 @@ const TableZayavki = () => {
             </tr>
           ))}
         </thead>
-        <tbody>
-          {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
-              {row.getVisibleCells().map((cell) => (
-                <td
-                  key={cell.id}
-                  style={{
-                    textAlign: "center",
-                    width: cell.column.getSize(), // только ширина
-                  }}
-                >
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
+      <tbody>
+  {table.getRowModel().rows.map((row) => (
+    <React.Fragment key={row.id}>
+      <tr>
+        {row.getVisibleCells().map((cell) => (
+          <td
+            key={cell.id}
+            style={{
+              width: cell.column.getSize(),
+            }}
+          >
+            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+          </td>
+        ))}
+      </tr>
+
+      {/* Дочерние строки */}
+      {row.getIsExpanded() &&
+        row.subRows?.map(subRow => (
+          <tr key={subRow.id} className={styles.subRow}>
+            {subRow.getVisibleCells().map(cell => (
+              <td
+                key={cell.id}
+                style={{
+
+                  width: cell.column.getSize(),
+                }}
+              >
+                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+              </td>
+            ))}
+          </tr>
+        ))
+      }
+    </React.Fragment>
+  ))}
+</tbody>
       </table>
     </div>
   );

@@ -1,42 +1,77 @@
 .container {
-   overflow: auto;
+  overflow: auto;
   position: relative;
-  height: 92vh;
-  font-size: 0.9rem;
+  height: 90vh;
   font-weight: 400;
-  
+  line-height: 1.5rem;
 
+  table {
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse; // объединяет границы между ячейками
+    table-layout: fixed; // помогает с изменением ширины колонок
+  }
 
+  th,
+  td {
+    font-weight: 400;
+    // границы для заголовков и данных
+    padding: 10px;
+    text-align: left;
+    white-space: nowrap;
+    position: relative; // для ресайзера (если есть)
+    /* Перенос текста */
+    white-space: normal; // позволяет переносить текст
+    word-break: break-word; // разрешает перенос внутри слова, если оно слишком длинное
+    overflow-wrap: break-word; // альтернатива word-break
+  }
 
+  td {
+    height: 3rem;
+    border: 1.5px solid #cccccc;
+    text-align: center;
+  }
 
+  thead th {
+    text-align: center;
+    height: 5rem;
+    font-weight: 600;
+    position: sticky; // фиксируем заголовки
+    top: 0; // отступ сверху
+    z-index: 1; // поверх контента
+    background-color: #dddee0;
+    border: 1.5px solid #cccccc; // чтобы не было просмотра данных сквозь шапку
+  }
 
-table {
+  .greenCircle {
+    fill: green;
+  }
+  .timeClosed {
+    display: flex;
+    justify-content: space-around;
+    align-items: space-between;
+    padding: 0;
+  }
+  .valueTimeClosed {
+    width: 9rem;
+  }
 
-  table-layout: fixed;
-  width: 100%;
-  border-collapse: collapse; // объединяет границы между ячейками
-  table-layout: fixed; // помогает с изменением ширины колонок
+  .subRow {
+  background-color: #f9f9f9;
 }
 
-th, td {
-  font-weight: 400;
-  border: 2px solid #8f8f8f; // границы для заголовков и данных
-  padding: 10px;
-  text-align: left;
-  white-space: nowrap;
-  position: relative; // для ресайзера (если есть)
-   /* Перенос текста */
-  white-space: normal;     // позволяет переносить текст
-  word-break: break-word;  // разрешает перенос внутри слова, если оно слишком длинное
-  overflow-wrap: break-word; // альтернатива word-break
+.subRow td {
+  font-style: italic;
+  color: #666;
 }
-
-thead th {
-  
-  position: sticky;     // фиксируем заголовки
-  top: 0;               // отступ сверху
-  z-index: 1;           // поверх контента
-  background-color: #bab9b9; // чтобы не было просмотра данных сквозь шапку
-  
-}
+ .expander {
+  cursor: pointer;
+  font-weight: 800;
+  border-radius:  20%;
+  height: 40px;
+  width: 40px;
+  text-align: center;
+  background-color: #313170;
+  opacity: 80%;
+ }
 }
