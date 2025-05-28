@@ -2,6 +2,7 @@
   overflow: auto;
   position: relative;
   height: 90vh;
+  
   font-weight: 400;
   line-height: 1.5rem;
 
@@ -62,16 +63,24 @@
 
 .subRow td {
   font-style: italic;
-  color: #666;
+  color: #4f4f4f;
 }
  .expander {
   cursor: pointer;
   font-weight: 800;
   border-radius:  20%;
-  height: 40px;
-  width: 40px;
+  height: 35px;
+  width: 35px;
   text-align: center;
+  padding:0;
   background-color: #313170;
   opacity: 80%;
+      &:hover {
+        opacity: 100%;
+      }
+
+  
  }
+
+
 }

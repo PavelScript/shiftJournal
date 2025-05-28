@@ -1,17 +1,25 @@
-import React from "react";
+import {React, useEffect, useState, useMemo, Fragment} from "react";
 import styles from "./TableZayavki.module.scss";
 import {
   useReactTable,
   getCoreRowModel,
   flexRender,
 } from '@tanstack/react-table';
-import data from "./data";
+
 
 const TableZayavki = () => {
-  const dataReady = React.useMemo(() => {
-    return data;
+  const [expanded, setExpanded] = useState({});
+  const [dataReady, setData] = useState([]);
+
+  //Получаем заявки из БД
+    useEffect(() => {
+    fetch('http://localhost:5000/api/zayavki')
+      .then(res => res.json())
+      .then(data => setData(data))
+      .catch(err => console.error(err));
   }, []);
-  const columns = React.useMemo(
+
+  const columns = useMemo(
     () => [
       {
         id: 'expander',
@@ -43,7 +51,7 @@ const TableZayavki = () => {
       {
         accessorKey: "place",
         header: "Объект",
-        size: 130,
+        size: 110,
       },
       {
         accessorKey: "via",
@@ -100,7 +108,7 @@ const TableZayavki = () => {
     []
   );
 
-    const [expanded, setExpanded] = React.useState({});
+    
   const table = useReactTable({
     data: dataReady,
     columns,
@@ -108,8 +116,9 @@ const TableZayavki = () => {
     expanded,
   },
   onExpandedChange: setExpanded,
-  getSubRows: row => row.subRows ?? undefined,
+   getSubRows: row => row.subRows ?? [],
   getCoreRowModel: getCoreRowModel(),
+  enableExpanding: true,
 });
 
   return (
@@ -137,7 +146,7 @@ const TableZayavki = () => {
         </thead>
       <tbody>
   {table.getRowModel().rows.map((row) => (
-    <React.Fragment key={row.id}>
+    <Fragment key={row.id}>
       <tr>
         {row.getVisibleCells().map((cell) => (
           <td
@@ -169,7 +178,7 @@ const TableZayavki = () => {
           </tr>
         ))
       }
-    </React.Fragment>
+    </Fragment>
   ))}
 </tbody>
       </table>
