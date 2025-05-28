@@ -13,7 +13,7 @@ const TableZayavki = () => {
 
   //Получаем заявки из БД
     useEffect(() => {
-    fetch('http://localhost:5000/api/zayavki')
+    fetch('http://46.173.29.202:5000/api/zayavki')
       .then(res => res.json())
       .then(data => setData(data))
       .catch(err => console.error(err));
